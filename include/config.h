@@ -9,14 +9,15 @@
 // Firmware version
 #define VERSION       "v1.8t8+0"
 
-#define LANG_JP_State false
+#define EN_CHINESE false
+#define EN_JAPANESE false
 
 // Type of rotary encoder
-#define ROTARY_TYPE   1         // 0: 2 increments/step; 1: 4 increments/step
+#define ROTARY_TYPE   0         // 0: 2 increments/step; 1: 4 increments/step
 
 // Pins
 #define SENSOR_PIN    A0        // temperature sense
-#define VIN_PIN       A1        // input voltage sense
+#define VIN_PIN       A6        // input voltage sense
 #define BUZZER_PIN     5        // buzzer
 #define BUTTON_PIN     6        // rotary encoder switch
 #define ROTARY_1_PIN   7        // rotary encoder 1

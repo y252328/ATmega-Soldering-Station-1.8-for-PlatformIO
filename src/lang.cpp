@@ -1,5 +1,6 @@
 #include "lang.h"
 
+#if EN_CHINESE
 const unsigned char *S_table[] = {S1, S2, S3, S4, S5, S6, S7};
 
 const unsigned char *CN_table[] = {
@@ -14,3 +15,5 @@ const unsigned char *CN_table[] = {
   t_CN_CN, t_CN_EN, t_CN_JP, //8
   t5_3, t4f, t_save, //9
 };
+#endif
+

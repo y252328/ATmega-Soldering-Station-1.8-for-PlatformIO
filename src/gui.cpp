@@ -29,7 +29,9 @@ void MainScreen() {
       //显示状态
       arduboy.setCursor(94, 5);
       switch (LANG) {
+#if EN_CHINESE
         case 0: arduboy.drawSlowXYBitmap(95, 1, S_table[SysState], 28, 14, 0); break;  //中文 Chinese
+#endif
         default: //英文 English
           switch (SysState) {
             case 1: arduboy.print(F("OFF")); break;
@@ -158,7 +160,16 @@ void SetupScreen() {
       case 6:   RotarySet(); break;
       case 7:   UnderVoltageSet(); break;
       case 8:   PasswordSet(); break;
-      case 9:   MenuLevel = 8; LANG = MenuScreen(LANG); if (LANG == 2 && !LANG_JP_State) LANG = 1; break;
+      case 9:   MenuLevel = 8; 
+        auto lang_tmp = MenuScreen(LANG);
+#if !(EN_CHINESE)
+        if(lang_tmp == 0) lang_tmp = LANG;
+#endif
+#if !(EN_JAPANESE)
+        if(lang_tmp = 2) lang_tmp = LANG;
+#endif
+        LANG = lang_tmp;
+        break;
       case 10:   QRcodeScreen(); break;
       default:  repeat = false; break;
     }
@@ -358,14 +369,22 @@ void DrawApp(int x, byte appID) {
 //显示APP对应的文本
 void DrawAppText(byte appID) {
   //  arduboy.setCursor(0, 55); arduboy.print(appID);
-  if (LANG == 0) arduboy.drawSlowXYBitmap(50, 50, CN_table[appID], 28, 14, 1); else if (LANG == 2 && LANG_JP_State) {
-#if LANG_JP_State
-    drawText(48, 52, JP_table[appID], pgm_read_byte(&(JP_Length_table[appID])));
+  switch (LANG) {
+#if EN_CHINESE
+  case 0:
+    arduboy.drawSlowXYBitmap(50, 50, CN_table[appID], 28, 14, 1); 
+    break;
 #endif
-  } else {
+#if EN_JAPANESE
+  case 2:
+    drawText(48, 52, JP_table[appID], pgm_read_byte(&(JP_Length_table[appID])));
+    break;
+#endif
+  default:
     arduboy.setCursor(48, 52);
     arduboy.setTextSize(1);
     Print_EN(appID);
+    break;
   }
 }
 

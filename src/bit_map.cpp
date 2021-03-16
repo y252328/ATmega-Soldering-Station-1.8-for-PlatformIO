@@ -1,7 +1,7 @@
 #include "bit_map.h"
 
 const unsigned char *C_table[] = {c1, c2, c3, Lightning, c5, c6, c7};
-#if LANG_JP_State
+#if EN_JAPANESE
 const unsigned char *Ico_table[] = {
   Set0, Set1, Set2, Set3, Set4, Set5, Set19, Set6, Lock, Set_LANG, QRC, Set7,
   Set8, Set9, Set0, Set10, Set12, Set7,
