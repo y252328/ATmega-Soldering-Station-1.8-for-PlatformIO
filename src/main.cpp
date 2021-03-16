@@ -142,7 +142,7 @@ bool      BeepEnable  = BEEP_ENABLE;
 
 //温度拟合
 float    PTemp[4] = {TempP1, TempP2, TempP3, TempP4}; //温度拟合系数
-const uint16_t CalTemp[9] = {50, 100, 150, 200, 250, 300, 350, 400, 450};
+const int CalTemp[9] = {50, 100, 150, 200, 250, 300, 350, 400, 450};
 char      TipName[TIPNAMELENGTH] = {TIPNAME};
 uint8_t   CurrentTip   = 0;
 uint8_t   NumberOfTips = 1;

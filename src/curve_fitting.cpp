@@ -7,7 +7,7 @@
 /*=======拟合y=a0+a1*x+a2*x^2+……+apoly_n*x^poly_n========*/
 /*=====n是数据个数 xy是数据值 poly_n是多项式的项数======*/
 /*===返回a0,a1,a2,……a[poly_n]，系数比项数多一（常数项）=====*/
-void polyfit(int n, int x[], int y[], int poly_n, float p[])
+void polyfit(int n, const int x[], const int y[], int poly_n, float p[])
 {
   int i, j;
   float *tempx, *tempy, *sumxx, *sumxy, *ata;

@@ -72,7 +72,7 @@ void MainScreen() {
 
 
       //警报声
-      if (getChipTemp() > 80 && ((millis() * 4) / 1000) % 2 || (float)Vin / 100 < UnderVoltage && ((millis() * 4) / 1000) % 2) {
+      if ((getChipTemp() > 80 && ((millis() * 4) / 1000) % 2) || ((float)Vin / 100 < UnderVoltage && ((millis() * 4) / 1000) % 2)) {
         beep();
         arduboy.invert(0);
       };
@@ -145,6 +145,7 @@ void SetupScreen() {
   uint16_t SaveSetTemp = SetTemp;
   uint8_t selection = 0;
   bool repeat = true;
+  uint16_t lang_tmp = LANG;
 
   while (repeat) {
     //arduboy.invert(0);
@@ -160,13 +161,14 @@ void SetupScreen() {
       case 6:   RotarySet(); break;
       case 7:   UnderVoltageSet(); break;
       case 8:   PasswordSet(); break;
-      case 9:   MenuLevel = 8; 
-        auto lang_tmp = MenuScreen(LANG);
+      case 9:   
+        MenuLevel = 8; 
+        lang_tmp = MenuScreen(LANG);
 #if !(EN_CHINESE)
         if(lang_tmp == 0) lang_tmp = LANG;
 #endif
 #if !(EN_JAPANESE)
-        if(lang_tmp = 2) lang_tmp = LANG;
+        if(lang_tmp == 2) lang_tmp = LANG;
 #endif
         LANG = lang_tmp;
         break;
@@ -552,7 +554,7 @@ void ChangeTipScreen() {
   if (s == "RESET.\0") {
     MenuLevel = 7;
     if (MenuScreen(0)) {
-      for (int i = 0 ; i < EEPROM.length() ; i++) EEPROM.write(i, 255);
+      for (uint16_t i = 0 ; i < EEPROM.length() ; i++) EEPROM.write(i, 255);
       resetFunc();
     }
   }
@@ -616,11 +618,11 @@ void CalibrationScreen() {
   if (pass) {
     MenuLevel = 7;
     polyfit(9, xx, CalTemp, 3, P); //拟合程序
-    free(xx);
+    // free(xx); // ??
     ShowPTemp(&P[0]);
     if (MenuScreen(0)) {
       for (uint8_t i = 0; i < 4; i++) PTemp[i] = P[i]; //写入拟合系数
-      free(P);
+      // free(P); // ??
       UpdateEEPROM();
     }
   } else {
@@ -726,7 +728,7 @@ void InputNameScreen() {
     beep(); delay (10);
   }
   TipName[TIPNAMELENGTH - 1] = 0;
-  return value;
+  // return value; ??
 }
 
 //删除烙铁头

@@ -94,7 +94,7 @@ extern bool      BeepEnable ;
 
 //温度拟合
 extern float    PTemp[4]; //温度拟合系数
-extern const uint16_t CalTemp[9];
+extern const int CalTemp[9];
 extern char      TipName[TIPNAMELENGTH];
 extern uint8_t   CurrentTip;
 extern uint8_t   NumberOfTips;
