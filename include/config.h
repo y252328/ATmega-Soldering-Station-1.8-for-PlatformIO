@@ -12,6 +12,8 @@
 #define EN_CHINESE false
 #define EN_JAPANESE false
 
+#define EN_EEPROM false
+
 // Type of rotary encoder
 #define ROTARY_TYPE   0         // 0: 2 increments/step; 1: 4 increments/step
 
@@ -26,8 +28,8 @@
 #define SWITCH_PIN    10        // handle vibration switch
 
 // Default temperature control values (recommended soldering temperature: 300-380°C)
-#define TEMP_MIN      100       // min selectable temperature
-#define TEMP_MAX      400       // max selectable temperature
+#define TEMP_MIN      150       // min selectable temperature
+#define TEMP_MAX      450       // max selectable temperature
 #define TEMP_DEFAULT  320       // default start setpoint
 #define TEMP_SLEEP    150       // temperature in sleep mode
 #define TEMP_BOOST     60       // temperature increase in boost mode

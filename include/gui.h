@@ -7,13 +7,6 @@
 #include "utility.h"
 #include "curve_fitting.h"
 #include "lang.h"
-/*
-extern byte Line[4];
-extern int Value;
-extern int LastValue[3];
-extern int SlidingAnimationY[3];
-extern const uint16_t CalTemp[9];
-*/
 // draws the main screen
 void MainScreen();
 void DrawNumRect(byte x, byte y, byte size, int n);

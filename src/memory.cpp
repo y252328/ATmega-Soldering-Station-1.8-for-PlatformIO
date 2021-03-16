@@ -4,7 +4,7 @@
   作用：防止因为EEPROM损坏而载入了错误的运行参数导致参数生产安全事故
 */
 void CheckEEPROM() {
-
+#if EN_EEPROM
   byte w, r;
   int pass = 0, fail = 0;
   for (int i = 0; i < EEPROM.length(); i++) {
@@ -49,13 +49,14 @@ void CheckEEPROM() {
     if (millis() / 1000 % 2 == 0)arduboy.print(F("BOOT FAILED"));
     arduboy.display();
   }
-
+#endif
 }
 
 /*查看EEPROM内存
    通过板载的旋转编码器可以上下滚动翻阅EEPROM中的数据
 */
 void ViewEEPRom() {
+#if EN_EEPROM
   setRotary(0, 1023, 4, 0);
   lastbutton = (!digitalRead(BUTTON_PIN));
   arduboy.setTextSize(1);
@@ -75,6 +76,7 @@ void ViewEEPRom() {
     CheckLastButton();
     arduboy.display();
   } while (digitalRead(BUTTON_PIN) || lastbutton);
+#endif
 }
 /* 从EEPROM读取烙铁头参数
     传入：烙铁头的序号
@@ -84,6 +86,7 @@ void ViewEEPRom() {
       2 读取数据
 */
 void GetEEPRomTip(byte n) {
+#if EN_EEPROM
   if (n <= TIPMAX) {
     uint16_t Counter = 21;
     //跳转到目标地址
@@ -93,6 +96,7 @@ void GetEEPRomTip(byte n) {
     for (int i = 0; i < (TIPNAMELENGTH + 1); i++) TipName[i] = EEPROM.read(Counter++);
     for (int i = 0; i < 4; i++) EEPROM.get(Counter += 4, PTemp[i]);
   }
+#endif EN_EEPROM
 }
 
 /* 把烙铁头参数写入EEPRom
@@ -103,6 +107,7 @@ void GetEEPRomTip(byte n) {
       2 写入EEProm
 */
 void PutEEPRomTip(byte n) {
+#if EN_EEPROM
   if (n <= TIPMAX) {
     uint16_t Counter = 21;
     //跳转到目标地址
@@ -112,6 +117,7 @@ void PutEEPRomTip(byte n) {
     for (int i = 0; i < (TIPNAMELENGTH + 1); i++) EEPROM.update(Counter++, TipName[i]);
     for (int i = 0; i < 4; i++) EEPROM.put(Counter += 4, PTemp[i]);
   }
+#endif
 }
 
 /* 从EEPROM删除某一项烙铁头参数
@@ -119,6 +125,7 @@ void PutEEPRomTip(byte n) {
     作用：把序号后的烙铁头数据位覆盖移到序号的位置，实现删除数据的目的
 */
 void DelEEPRomTip(byte n) {
+#if EN_EEPROM
   if (n <= TIPMAX) {
     uint16_t Counter = 21;
     //跳转到目标地址
@@ -132,10 +139,12 @@ void DelEEPRomTip(byte n) {
       Counter += (TIPNAMELENGTH + 1) + 4 * 5;
     }
   }
+#endif
 }
 
 // reads user settings from EEPROM; if EEPROM values are invalid, write defaults
 void GetEEPROM() {
+#if EN_EEPROM
   uint16_t identifier = (EEPROM.read(0) << 8) | EEPROM.read(1);
   if (identifier == EEPROM_IDENT) {
     DefaultTemp = (EEPROM.read(2) << 8) | EEPROM.read(3);
@@ -161,11 +170,13 @@ void GetEEPROM() {
     UpdateEEPROM();
   }
   GetEEPRomTip(CurrentTip);
+#endif
 }
 
 
 // writes user settings to EEPROM using updade function to minimize write cycles
 void UpdateEEPROM() {
+#if EN_EEPROM
   EEPROM.update( 2, DefaultTemp >> 8);
   EEPROM.update( 3, DefaultTemp & 0xFF);
   EEPROM.update( 4, SleepTemp >> 8);
@@ -186,4 +197,5 @@ void UpdateEEPROM() {
   EEPROM.update(19, Password & 0xFF);
   EEPROM.update(20, RotaryD);
   PutEEPRomTip(CurrentTip);
+#endif
 }
