@@ -818,13 +818,13 @@ void Flip(bool Fmode) {
 void ShowVersion() {
   arduboy.clear();
   arduboy.setTextSize(2);
-  arduboy.setCursor(28, 24);
+  arduboy.setCursor(18, 24);
   arduboy.print(F(VERSION));
   arduboy.display();
   delay(700);
   arduboy.clear();
   SetTextColor(0);
-  arduboy.setCursor(28, 24);
+  arduboy.setCursor(18, 24);
   arduboy.print(F(VERSION));
   arduboy.display();
   delay(300);

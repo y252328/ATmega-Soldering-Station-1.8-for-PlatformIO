@@ -7,7 +7,7 @@
 #include <Arduboy2.h>
 
 // Firmware version
-#define VERSION       "v1.8t8+0"
+#define VERSION       "v1.8t8+1"
 
 #define EN_CHINESE false
 #define EN_JAPANESE false
@@ -28,9 +28,9 @@
 #define SWITCH_PIN    10        // handle vibration switch
 
 // Default temperature control values (recommended soldering temperature: 300-380°C)
-#define TEMP_MIN      150       // min selectable temperature
+#define TEMP_MIN      120       // min selectable temperature
 #define TEMP_MAX      450       // max selectable temperature
-#define TEMP_DEFAULT  320       // default start setpoint
+#define TEMP_DEFAULT  300       // default start setpoint
 #define TEMP_SLEEP    150       // temperature in sleep mode
 #define TEMP_BOOST     60       // temperature increase in boost mode
 #define TEMP_STEP      5       // rotary encoder temp change steps
